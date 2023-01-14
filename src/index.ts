@@ -9,6 +9,7 @@ dotenv.config({
 });
 const app: Application = express();
 const port = process.env.PORT || 3000;
+const mongo = process.env.MONGO || "mongodb://mongo:27017/docker-node-mongo";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,7 +22,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
     });
 });
 
-mongoose.connect(process.env.MONGO as string).then(() => {
+mongoose.connect(mongo as string).then(() => {
     console.log("Connected to MongoDB");
 }).catch((err) => {
     console.log(err);
